@@ -13,7 +13,6 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
-    console.log(createUserDto);
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
 
@@ -24,7 +23,7 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: number): Promise<User | null> {
+  async findOne(id: number): Promise<User | null> {
     return this.usersRepository.findOneBy({ id: id });
   }
 

@@ -11,12 +11,11 @@ export class RecipesService {
     private readonly recipesRepository: Repository<Recipe>,
   ) {}
 
-  create(createUserDto: CreateRecipeDto): Promise<Recipe> {
+  create(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     const recipe = new Recipe();
-    console.log(createUserDto);
-    recipe.firstStep = createUserDto.firstStep;
-    recipe.totalTime = createUserDto.totalTime;
-
+    console.log(createRecipeDto);
+    recipe.firstStep = createRecipeDto.firstStep;
+    recipe.totalTime = createRecipeDto.totalTime;
     return this.recipesRepository.save(recipe);
   }
 
@@ -24,7 +23,12 @@ export class RecipesService {
     return this.recipesRepository.find();
   }
 
-  findOne(id: number): Promise<Recipe | null> {
+  async findOne(id: number): Promise<Recipe | null> {
+    return this.recipesRepository.findOneBy({ id: id });
+  }
+
+  async update(id: number, recipe: Recipe): Promise<Recipe | null> {
+    await this.recipesRepository.update(id, recipe);
     return this.recipesRepository.findOneBy({ id: id });
   }
 

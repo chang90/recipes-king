@@ -42,6 +42,7 @@ describe('RecipesController', () => {
                 id,
               }),
             ),
+            update: jest.fn(),
             remove: jest.fn(),
           },
         },
@@ -64,6 +65,17 @@ describe('RecipesController', () => {
         ...createRecipeDto,
       });
       expect(recipesService.create).toHaveBeenCalledWith(createRecipeDto);
+    });
+  });
+
+  describe('update()', () => {
+    it('should update a recipe', () => {
+      recipesController.update('1', {
+        firstStep: 3,
+        totalTime: 10,
+        id: 1,
+      });
+      expect(recipesService.update).toHaveBeenCalled();
     });
   });
 

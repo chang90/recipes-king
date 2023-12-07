@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   ParseIntPipe,
 } from '@nestjs/common';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
@@ -18,6 +19,14 @@ export class RecipesController {
   @Post()
   create(@Body() createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     return this.recipesService.create(createRecipeDto);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() recipe: Recipe,
+  ): Promise<Recipe | null> {
+    return this.recipesService.update(parseInt(id, 10), recipe);
   }
 
   @Get()
